@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const readline = require('readline');
+const { isRegExp } = require('util/types');
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -12,17 +13,22 @@ const rl = readline.createInterface({
 
 console.clear()
 const countIt = (str) => {
-  let cleanString = str.toLowerCase().replace(/[^A-Za-z0-9]/g, '')
+
+  console.log('BOOMS', str.length)
+  let cleanString = str.toLowerCase().replace( /[^A-Za-z0-9]/g, '')
   console.log(cleanString)
-  const counts = {};
-  for (const i of cleanString) {
-    if (counts[i]) {
-      counts[i]++
+  let sortObj = {}
+  for (let index = 0; index < cleanString.length; index++) {
+    if(!sortObj[cleanString[index]]) {
+      sortObj[cleanString[index]] = 1
     } else {
-      counts[i] = 1
+      console.log('letter already exists inside object')
+      sortObj[cleanString[index]]++
     }
   }
-  return counts;
+  console.log(sortObj)
+  return sortObj
+
 }
 
 // const string = "I want to count the number of occurences of each char in this string";
@@ -67,6 +73,24 @@ if (typeof describe === 'function') {
       assert.equal(typeof countIt, "function");
     });
   });
+  describe('Should take a string', ()=>{
+    it('should accept a string', ()=>{
+      
+      assert.equal(typeof 'hello', 'string')
+    })
+    it('should do something with string', ()=>{
+      
+      assert.equal(typeof str, 'string')
+    })
+  })
+  describe('Count it function breaks down the string', ()=>{
+    it('Should return an object with letters as the key and the values as the amount the letter appears', ()=>{
+      assert.equal(String(countIt('Hello')), String({ h: 1, e: 1, l: 2, o: 1}))
+    })
+  })
 } else {
   getPrompt();
 }
+
+
+

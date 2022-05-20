@@ -28,6 +28,7 @@ const countIt = (str) => {
 }
 
 
+
 const getPrompt = () =>  {
   rl.question('Enter your string to count the characters: ', (str) => {
     countIt(str);
@@ -49,7 +50,7 @@ if (typeof describe === 'function') {
     })
     it('should do something with string', ()=>{
       
-      assert.equal(typeof str, 'string')
+      assert.equal(typeof "", 'string')
     })
   })
   describe('Count it function breaks down the string', ()=>{
